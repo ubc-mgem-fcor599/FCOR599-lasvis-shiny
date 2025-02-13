@@ -19,7 +19,7 @@ Presentation Slides
 
 ![Tree detection in a Shiny app, try it yourself below!](images/itd_shiny.png){fig-align="center"}
 
-**Download the ITD example ShinyApp (.zip)**
+[**Download the ITD example ShinyApp (.zip)**](content/itd_shiny.zip)
 
 **Contains:**
 
@@ -46,7 +46,7 @@ data/chm_ext - four example 0.25 m Canopy Height Models (CHM)
 
 ![Example of a GIF you can produce! (Please don't use this exact one for submission)](images/example_gif.gif){fig-align="center" width="500"}
 
-[**Download the Rotating LAS GIF Script and sample data (.zip)**](rotating_las_gif.zip)
+[**Download the Rotating LAS GIF Script and sample data (.zip)**](content/rotating_las_gif.zip)
 
 ### Potree
 

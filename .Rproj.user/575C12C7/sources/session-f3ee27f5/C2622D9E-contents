@@ -8,6 +8,7 @@ website:
       - href: index.qmd
         text: ""
 
+
 format:
   html:
     theme: cosmo
