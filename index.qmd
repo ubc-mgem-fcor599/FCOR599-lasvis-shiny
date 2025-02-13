@@ -17,7 +17,9 @@ Presentation Slides
 
 ### **The TreeDetectoR Shiny App**
 
-[**Download the ITD example ShinyApp (.zip)**](itd_shiny.zip)
+![Tree detection in a Shiny app, try it yourself below!](images/itd_shiny.png){fig-align="center"}
+
+**Download the ITD example ShinyApp (.zip)**
 
 **Contains:**
 
