@@ -1,0 +1,20 @@
+
+
+las_files <- list.files('C:/Users/lakirwin.stu/Documents/GitHub/las_vis_and_shiny/data/las_ex',
+                        pattern = '.laz', full.names = TRUE)
+                        
+devtools::load_all('C:/Users/lakirwin.stu/Documents/GitHub/silvtools')
+
+i <- 1
+
+for (i in 1:length(las_files)) {
+  las <- readLAS(las_files[i])
+  
+  crown_rast <- silvtools::crown_mask(chunk = las, ws = 2, vis = TRUE)
+  
+  # Merge spatial with las
+  las_treeid <- lidR::merge_spatial(las, crown_rast, attribute = 'treeID')
+  las_treeid <- lidR::add_lasattribute(las_treeid, name = 'treeID', desc = 'ID of a Tree')
+  
+  writeLAS(las_treeid, glue::glue('data/las_ex/{i}_treeid.laz'))
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Point Cloud Visualization and Shiny Apps",
+    "section": "",
+    "text": "Presentation Slides"
+  },
+  {
+    "objectID": "index.html#shiny-apps",
+    "href": "index.html#shiny-apps",
+    "title": "Point Cloud Visualization and Shiny Apps",
+    "section": "Shiny Apps",
+    "text": "Shiny Apps\n\nThe TreeDetectoR Shiny App\nDownload the ITD example ShinyApp (.zip)\nContains:\nitd_shiny.R - an R script containing the tree detection Shiny App components\ndata/chm_ext - four example 0.25 m Canopy Height Models (CHM)\nInstructions:\n\nDownload and extract contents to a folder\nOpen itd_shiny.R in RStudio and run entire script to start up the shiny app\nLoad an example CHM (or your own) and play around\n\n\n\nMore resources\n\nGetting started with shinyapps.io (web hosting)\nRead the Shiny textbook, there is no better resource.\n\n\n\n\n\n\n\n\nMastering Shiny - Free textbook by Hadley Wickham"
+  },
+  {
+    "objectID": "index.html#point-cloud-visualization",
+    "href": "index.html#point-cloud-visualization",
+    "title": "Point Cloud Visualization and Shiny Apps",
+    "section": "Point Cloud Visualization",
+    "text": "Point Cloud Visualization\n\nRotating Point Clouds with lidR\n\n\n\nExample of a GIF you can produce! (Please don’t use this exact one for submission)\n\n\nDownload the Rotating LAS GIF Script and sample data (.zip)\n\n\nPotree\n\n\n\n\n\n\nCheck out Potree\nCheck out Potree Desktop (not recommended for UBC laptops)\nCheck out these Potree examples (find a cool one for your assignment)\n\nRiver example"
+  },
+  {
+    "objectID": "index.html#deliverables",
+    "href": "index.html#deliverables",
+    "title": "Point Cloud Visualization and Shiny Apps",
+    "section": "Deliverables",
+    "text": "Deliverables\n\nTake three PNG screenshots of tree detection results from the ITD shiny app\n\nTry out different window sizes, visualization options etc\n\nTake a screenshot of your favourite Potree example point cloud, write two sentences about why you found it interesting or cool.\n\n\n\nCreate your own rotating GIF\n\nMake sure this is less than 50mb in size\n\n\nDownload the FCOR 599 Submission Template (.docx)\nUpload to Canvas\n\nWord document with four screenshots and your two sentences\nYour own rotating GIF!"
+  }
+]

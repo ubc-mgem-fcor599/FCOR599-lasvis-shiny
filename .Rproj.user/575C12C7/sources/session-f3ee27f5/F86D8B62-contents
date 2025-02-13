@@ -1,0 +1,80 @@
+---
+title: "Point Cloud Visualization and Shiny Apps"
+author: Liam Irwin
+image: images/MGEM_logo.png
+about:
+  template: marquee
+  image-width: 10em
+  links: 
+    - icon: envelope-at
+      text: Email
+      href: mailto:liamakirwin@gmail.com
+---
+
+Presentation Slides
+
+## [Shiny Apps]{.underline}
+
+### **The TreeDetectoR Shiny App**
+
+[**Download the ITD example ShinyApp (.zip)**](itd_shiny.zip)
+
+**Contains:**
+
+itd_shiny.R - an R script containing the tree detection Shiny App components\
+data/chm_ext - four example 0.25 m Canopy Height Models (CHM)
+
+**Instructions:**
+
+1.  Download and extract contents to a folder
+2.  Open itd_shiny.R in RStudio and run entire script to start up the shiny app
+3.  Load an example CHM (or your own) and play around
+
+### **More resources**
+
+-   [Getting started with shinyapps.io (web hosting)](https://shiny.posit.co/r/articles/share/shinyapps/)
+
+-   Read the Shiny textbook, there is no better resource.
+
+[![Mastering Shiny - Free textbook by Hadley Wickham](images/textbook.jpg){fig-align="center" width="250"}](https://mastering-shiny.org/)
+
+## [Point Cloud Visualization]{.underline}
+
+### Rotating Point Clouds with lidR
+
+![Example of a GIF you can produce! (Please don't use this exact one for submission)](images/example_gif.gif){fig-align="center" width="500"}
+
+[**Download the Rotating LAS GIF Script and sample data (.zip)**](rotating_las_gif.zip)
+
+### Potree
+
+![](images/potree_ex.png){fig-align="center" width="601"}
+
+-   [Check out Potree](https://github.com/potree)
+
+-   [Check out Potree Desktop](https://github.com/potree/PotreeDesktop) (not recommended for UBC laptops)
+
+-   [Check out these Potree examples](https://github.com/potree/potree?tab=readme-ov-file#examples) (find a cool one for your assignment)
+
+[**River example**](https://explore-research.uibk.ac.at/geodesy/geoai/potree/scenes/Loosdorf_Pielach.html)
+
+## Deliverables
+
+-   Take three PNG screenshots of tree detection results from the ITD shiny app
+
+    -   Try out different window sizes, visualization options etc
+
+-   Take a screenshot of your favourite [Potree example](https://github.com/potree/potree?tab=readme-ov-file#examples) point cloud, write two sentences about why you found it interesting or cool.
+
+<!-- -->
+
+-   Create your own rotating GIF
+
+    -   Make sure this is less than 50mb in size
+
+[**Download the FCOR 599 Submission Template (.docx)**](content/firstname_lastname_fcor599_pointcloudshiny.docx)
+
+**Upload to Canvas**
+
+1.  Word document with four screenshots and your two sentences
+2.  Your own rotating GIF!
