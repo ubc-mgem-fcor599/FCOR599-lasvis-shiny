@@ -27,8 +27,7 @@ fgauss <- function(sigma, n = 5) {
 
 # ---- Get paths to example CHM files ----
 chm_paths <- list.files('data/chm_ex', pattern = '\\.tif$', full.names = TRUE)
-# Create a named vector for the dropdown menu (display names are the file basenames)
-example_choices <- c("Select an example" = "", setNames(chm_paths, basename(chm_paths)))
+example_choices <- setNames(chm_paths, basename(chm_paths))
 
 # ---- Plotting function with extended symbology options ----
 plot_chm_ttops_tidy <- function(chm, ttops,
@@ -75,15 +74,13 @@ ui <- fluidPage(
   fluidRow(
     column(width = 3,
            wellPanel(
-             # Allow file upload...
              fileInput("chm_file", "Upload CHM TIF",
                        accept = c(".tif", ".tiff")),
-             # ...or selection from example CHMs
-             selectInput("example_chm", "Select Example CHM:", choices = example_choices, selected = ""),
+             radioButtons("example_chm_radio", "Select Example CHM:",
+                          choices = example_choices, selected = character(0)),
              br(),
              sliderInput("lmf_ws", "Window size (ws):",
                          min = 1, max = 10, value = 2),
-             # New checkbox for variable window size with hyperlink to the paper
              checkboxInput("variable_ws",
                            label = HTML("Variable Window Size (<a href='https://doi.org/10.14358/PERS.70.5.589' target='_blank'>Popescu and Wynne 2004</a>)"),
                            value = FALSE),
@@ -99,7 +96,6 @@ ui <- fluidPage(
                ),
                tabPanel("Tree Top Options",
                         checkboxInput("show_ttops", "Show Tree Tops", value = TRUE),
-                        # Using colourpicker for tree top color
                         colourInput("ttops_color", "Tree Top Color:", value = "red"),
                         selectInput("ttops_shape", "Tree Top Shape:",
                                     choices = c("circle" = 16, "square" = 15,
@@ -113,12 +109,10 @@ ui <- fluidPage(
                )
              ),
              hr(),
-             # Export / Download Options
              downloadButton("download_plot", "Download Plot (PNG)"),
              br(), br(),
              downloadButton("download_ttops", "Download Tree Tops (GPKG)"),
              hr(),
-             # Large green Update Plot button at bottom
              actionButton("go_button", "Update Plot", class = "btn btn-success btn-lg")
            )
     ),
@@ -137,45 +131,78 @@ server <- function(input, output, session){
   observe({
     showModal(modalDialog(
       title = "Welcome to CHM Tree Top Detection",
-      "Please upload a CHM file or select an example from the drop-down to begin.",
+      "Please upload a CHM file or choose one of the example CHMs to begin.",
       easyClose = TRUE,
       footer = modalButton("OK")
     ))
   })
 
-  # Observer for the Update Plot button
-  observeEvent(input$go_button, {
-    # Use the uploaded file if provided; otherwise use the selected example if available
-    if (!is.null(input$chm_file) && input$chm_file$datapath != "") {
-      chm <- rast(input$chm_file$datapath)
-    } else if (input$example_chm != "") {
-      chm <- rast(input$example_chm)
+  # A helper function to update CHM and treetops
+  updateChmAndTtops <- function(chmPath=NULL, chmFile=NULL,
+                                smooth=FALSE, variable_ws=FALSE,
+                                lmf_ws=2, hmin=5) {
+
+    if (!is.null(chmFile) && chmFile != "") {
+      chm <- rast(chmFile)
+    } else if (!is.null(chmPath) && chmPath != "") {
+      chm <- rast(chmPath)
     } else {
       showNotification("Please upload a CHM or select an example CHM", type = "error")
       return(NULL)
     }
 
-    # Optionally smooth the CHM before detection
-    if (input$smooth_chm) {
+    if (smooth) {
       chm <- terra::focal(chm, w = fgauss(sigma = 1, n = 5))
       names(chm) <- "Z"
     }
 
-    # Determine tree detection algorithm based on the Variable Window Size option
-    if (input$variable_ws) {
-      # Using a variable window size function: f(x) = 0.1*x + 3
-      # Optionally, compute the maximum height (z_max) to illustrate the method:
-      z_max <- terra::global(chm, "max", na.rm = TRUE)[1,1]
-      # heights <- seq(0, z_max, by = 5)
-      # ws_values <- (heights * 0.1 + 3)  # (For demonstration; the function below is passed to lmf)
-
-      ttops <- locate_trees(chm, algorithm = lmf(ws = function(x) { x * 0.1 + 3 }, hmin = input$hmin))
+    if (variable_ws) {
+      ttops <- locate_trees(
+        chm,
+        algorithm = lmf(ws = function(x) { x * 0.1 + 3 }, hmin = hmin)
+      )
     } else {
-      ttops <- locate_trees(chm, algorithm = lmf(ws = input$lmf_ws, hmin = input$hmin))
+      ttops <- locate_trees(
+        chm,
+        algorithm = lmf(ws = lmf_ws, hmin = hmin)
+      )
     }
 
-    rv$chm <- chm
-    rv$ttops <- ttops
+    list(chm = chm, ttops = ttops)
+  }
+
+  # Observer for "Update Plot" button
+  observeEvent(input$go_button, {
+    res <- updateChmAndTtops(
+      chmPath   = input$example_chm_radio,
+      chmFile   = if (!is.null(input$chm_file)) input$chm_file$datapath else NULL,
+      smooth    = input$smooth_chm,
+      variable_ws = input$variable_ws,
+      lmf_ws    = input$lmf_ws,
+      hmin      = input$hmin
+    )
+    if (!is.null(res)) {
+      rv$chm   <- res$chm
+      rv$ttops <- res$ttops
+    }
+  })
+
+  # Automatically update plot when user picks an example CHM
+  observeEvent(input$example_chm_radio, {
+    if (input$example_chm_radio != "") {
+      res <- updateChmAndTtops(
+        chmPath   = input$example_chm_radio,
+        chmFile   = NULL,
+        smooth    = input$smooth_chm,
+        variable_ws = input$variable_ws,
+        lmf_ws    = input$lmf_ws,
+        hmin      = input$hmin
+      )
+      if (!is.null(res)) {
+        rv$chm   <- res$chm
+        rv$ttops <- res$ttops
+      }
+    }
   })
 
   # Reactive expression for final ggplot
@@ -205,10 +232,10 @@ server <- function(input, output, session){
       res_vals <- res(rv$chm)
       res_str  <- paste0(round(res_vals[1], 2), "-", round(res_vals[2], 2))
       smoothed <- if (input$smooth_chm) "YES" else "NO"
-      paste0("chm_plot_ws-", ifelse(input$variable_ws, "variable", input$lmf_ws),
+      paste0("chm_plot_ws-",
+             ifelse(input$variable_ws, "variable", input$lmf_ws),
              "_smooth-", smoothed,
-             "_res-", res_str,
-             ".png")
+             "_res-", res_str, ".png")
     },
     content = function(file) {
       ggsave(
@@ -227,10 +254,10 @@ server <- function(input, output, session){
       res_vals <- res(rv$chm)
       res_str  <- paste0(round(res_vals[1], 2), "-", round(res_vals[2], 2))
       smoothed <- if (input$smooth_chm) "YES" else "NO"
-      paste0("treetops_ws-", ifelse(input$variable_ws, "variable", input$lmf_ws),
+      paste0("treetops_ws-",
+             ifelse(input$variable_ws, "variable", input$lmf_ws),
              "_smooth-", smoothed,
-             "_res-", res_str,
-             ".gpkg")
+             "_res-", res_str, ".gpkg")
     },
     content = function(file) {
       req(rv$ttops)
@@ -239,4 +266,9 @@ server <- function(input, output, session){
   )
 }
 
-shinyApp(ui = ui, server = server)
+# Launch the app with a suggestion to open at 1920x1080:
+shinyApp(ui = ui, server = server, options = list(
+  launch.browser = TRUE,
+  width = 1920,
+  height = 1080
+))
