@@ -11,7 +11,7 @@
     "href": "index.html#shiny-apps",
     "title": "Point Cloud Visualization and Shiny Apps",
     "section": "Shiny Apps",
-    "text": "Shiny Apps\n\nThe TreeDetectoR Shiny App\n\n\n\nTree detection in a Shiny app, try it yourself below!\n\n\nDownload the ITD example ShinyApp (.zip)\nContains:\nitd_shiny.R - an R script containing the tree detection Shiny App components\ndata/chm_ext - four example 0.25 m Canopy Height Models (CHM)\nInstructions:\n\nDownload and extract contents to a folder\nOpen itd_shiny.R in RStudio and run entire script to start up the shiny app\nLoad an example CHM (or your own) and play around\n\n\n\nMore resources\n\nGetting started with shinyapps.io (web hosting)\nRead the Shiny textbook, there is no better resource.\n\n\n\n\nMastering Shiny - Free textbook by Hadley Wickham"
+    "text": "Shiny Apps\n\nThe TreeDetectoR Shiny App\n\n\n\nTree detection in a Shiny app, try it yourself below!\n\n\nDownload the ITD example ShinyApp (.zip)\nContains:\nitd_shiny.R - an R script containing the tree detection Shiny App components\nitd_shiny.Rproj - an R project file, use this to ensure the example paths work\ndata/chm_ext - four example 0.25 m Canopy Height Models (CHM)\nInstructions:\n\nDownload and extract contents to a folder\nOpen the itd_shiny R Project using RStudio\nOpen itd_shiny.R in RStudio and run entire script to initateup the shiny app\nLoad an example CHM (or your own) and play around\n\n\n\nMore resources\n\nGetting started with shinyapps.io (web hosting)\nRead the Shiny textbook, there is no better resource.\n\n\n\n\nMastering Shiny - Free textbook by Hadley Wickham"
   },
   {
     "objectID": "index.html#deliverables",

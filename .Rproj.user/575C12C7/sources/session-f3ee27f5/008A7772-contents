@@ -29,7 +29,6 @@ fgauss <- function(sigma, n = 5) {
 }
 
 # ---- Get paths to example CHM files (using relative path) ----
-# 'here::here("data", "chm_ex")' will locate the 'data/chm_ex' folder relative to the script
 chm_folder <- here::here("data", "chm_ex")
 chm_paths  <- list.files(chm_folder, pattern = '\\.tif$', full.names = TRUE)
 example_choices <- setNames(chm_paths, basename(chm_paths))

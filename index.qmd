@@ -43,14 +43,17 @@ about:
 
 **Contains:**
 
-itd_shiny.R - an R script containing the tree detection Shiny App components\
+itd_shiny.R - an R script containing the tree detection Shiny App components
+
+itd_shiny.Rproj - an R project file, use this to ensure the example paths work\
 data/chm_ext - four example 0.25 m Canopy Height Models (CHM)
 
 **Instructions:**
 
 1.  Download and extract contents to a folder
-2.  Open itd_shiny.R in RStudio and run entire script to start up the shiny app
-3.  Load an example CHM (or your own) and play around
+2.  Open the itd_shiny R Project using RStudio
+3.  Open itd_shiny.R in RStudio and run entire script to initateup the shiny app
+4.  Load an example CHM (or your own) and play around
 
 ### **More resources**
 
