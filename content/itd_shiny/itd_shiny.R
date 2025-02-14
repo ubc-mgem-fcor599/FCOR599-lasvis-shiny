@@ -1,7 +1,9 @@
 # --- Load required packages ---
 
-# Required packages for tutorial
-packages <- c("terra", "sf", "lidR", "shiny", "tidyterra", "ggplot2", "ggspatial", "colourpicker")
+# Required packages for tutorial (added "here" package to list)
+packages <- c("terra", "sf", "lidR", "shiny", "tidyterra", "ggplot2", "ggspatial",
+              "colourpicker", "here")
+
 # Check if packages are installed, if not install them
 install.packages(setdiff(packages, installed.packages()[, "Package"]))
 
@@ -13,6 +15,7 @@ library(tidyterra)
 library(ggplot2)
 library(ggspatial)
 library(colourpicker)
+library(here)
 
 # ---- Helper function for smoothing CHM (Gaussian kernel) ----
 fgauss <- function(sigma, n = 5) {
@@ -25,8 +28,10 @@ fgauss <- function(sigma, n = 5) {
   m / sum(m)
 }
 
-# ---- Get paths to example CHM files ----
-chm_paths <- list.files('data/chm_ex', pattern = '\\.tif$', full.names = TRUE)
+# ---- Get paths to example CHM files (using relative path) ----
+# 'here::here("data", "chm_ex")' will locate the 'data/chm_ex' folder relative to the script
+chm_folder <- here::here("data", "chm_ex")
+chm_paths  <- list.files(chm_folder, pattern = '\\.tif$', full.names = TRUE)
 example_choices <- setNames(chm_paths, basename(chm_paths))
 
 # ---- Plotting function with extended symbology options ----
@@ -71,6 +76,7 @@ options(shiny.maxRequestSize = 100 * 1024^2)
 # ---- Shiny UI ----
 ui <- fluidPage(
   titlePanel("CHM Tree Top Detection"),
+
   fluidRow(
     column(width = 3,
            wellPanel(
@@ -119,6 +125,12 @@ ui <- fluidPage(
     column(width = 9,
            plotOutput("chm_plot", height = "700px")
     )
+  ),
+
+  absolutePanel(
+    bottom = 5, right = 5,
+    style = "background-color: rgba(255,255,255,0.7); padding: 5px; border-radius: 4px;",
+    "Created by Liam Irwin 2025 for University of British Columbia MGEM Program"
   )
 )
 
