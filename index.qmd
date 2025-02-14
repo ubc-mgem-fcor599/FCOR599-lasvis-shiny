@@ -21,6 +21,20 @@ about:
 
 [**Download the Rotating LAS GIF Script and sample data (.zip)**](content/rotating_las_gif.zip)
 
+**Contains:**
+
+rotating_gif.R - an R script containing the rotating GIF from las/laz function
+
+rotating_las_gif.Rproj - an R project file, use this to ensure the example paths work\
+las_ex\\ - folder containing five example 400m2 plots of [drone lidar](https://enterprise.dji.com/zenmuse-l2 "Data collected using the DJI L2 in central British Columbia") data to play with
+
+**Instructions:**
+
+1.  Download and extract contents to a folder
+2.  Open the rotating_las_gif R Project using RStudio
+3.  Open rotating_gif.R in RStudio, run the script to generate your first gif
+4.  Play around with different options until you're happy with your gif
+
 ### Potree
 
 ![](images/potree_ex.png){fig-align="center" width="601"}
@@ -52,7 +66,7 @@ data/chm_ext - four example 0.25 m Canopy Height Models (CHM)
 
 1.  Download and extract contents to a folder
 2.  Open the itd_shiny R Project using RStudio
-3.  Open itd_shiny.R in RStudio and run entire script to initateup the shiny app
+3.  Open itd_shiny.R in RStudio and run entire script to initate the shiny app
 4.  Load an example CHM (or your own) and play around
 
 ### **More resources**
