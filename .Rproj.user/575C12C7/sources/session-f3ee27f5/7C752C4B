@@ -1,0 +1,26 @@
+{
+    "id": "7C752C4B",
+    "path": "~/GitHub/las_vis_and_shiny/content/rotating_las_gif/rotating_gif.R",
+    "project_path": "content/rotating_las_gif/rotating_gif.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1739548984163.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "108,0",
+        "scrollLine": "101"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1739550254,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1739550254027,
+    "read_only": false,
+    "read_only_alternatives": []
+}

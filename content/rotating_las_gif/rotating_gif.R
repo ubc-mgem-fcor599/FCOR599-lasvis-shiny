@@ -32,6 +32,9 @@ create_rotating_gif <- function(file_path, # path to LAS/LAZ file
     stop(glue::glue("The following packages are required but not installed: {missing_pkgs}"))
   }
 
+  # Load required packages
+  lapply(req_pkgs, require, character.only = TRUE)
+
   # Set output directory to the file's directory if not provided
   if (is.null(out_dir)) {
     out_dir <- dirname(file_path)
@@ -66,7 +69,7 @@ create_rotating_gif <- function(file_path, # path to LAS/LAZ file
   angle_list <- rep(photo_d * pi / 180, num_frames) # List of angles to rotate by
 
   # Plot the point cloud and set the window size
-  plot(las, color = col_by, bg = bg_col)
+  lidR::plot(las, color = col_by, bg = bg_col)
   # Create an rgl device with the same window size
   par3d(windowRect = c(10, 5, rgl_width, rgl_height))
 
@@ -82,7 +85,7 @@ create_rotating_gif <- function(file_path, # path to LAS/LAZ file
   rgl::close3d()
 
   # Assemble snapshots into an animated GIF
-
+  message(glue::glue("Finished capturing snapshots, assembling animated GIF... be patient"))
   # List all the snapshots RGL just took
   img_files <- list.files(snapshot_dir, full.names = TRUE)
   # Read them into R using magick
@@ -118,8 +121,22 @@ las_path <- 'data/las_ex/1_pointcloud_norm.laz'
 # las_path <- 'data/las_ex/4_pointcloud_norm.laz'
 # las_path <- 'data/las_ex/5_pointcloud_norm.laz'
 
+# Tree colouring the point cloud by other attributes
+
+col_by <- "Z"
+# col_by <- "RGB"
+# col_by <- "treeID"
+# col_by <- "intensity"
+
+bg_col <- "black"
+# bg_col = 'white'
+# Feel free to modify the function to add more custom parameters for plotting
+
+
+
+
 # Run this to generate and save a rotating GIF!
-create_rotating_gif(las_path, col_by = "Z", delay = 5,
-                    bg_col = 'black',
+create_rotating_gif(las_path, col_by = col_by, delay = 5,
+                    bg_col = bg_col,
                     photo_d = 2,
                     rgl_width = 750, rgl_height = 750)
